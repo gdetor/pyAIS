@@ -52,8 +52,8 @@ class ais(object):
                 The log of sum of logs of x.
         """
         x = np.array(x)
-        a = x.max(axis=dim) - np.log(np.finfo('d').max) / 2
-        return a + np.log(np.exp(x - np.expand_dims(a, 1)).sum(axis=dim))
+        a = x.max(axis=dim) - np.log(np.finfo('d').max) / 2.0
+        return a + np.log(np.exp(x - np.array(a, ndmin=2)).sum(axis=dim))
 
     def logdiff(self, x, dim=0):
         """ Returns the log of diff of logs of x.
@@ -172,8 +172,8 @@ class ais(object):
 if __name__ == '__main__':
     # An extremely simple test case
     W = np.array([[1, 2, 3], [4, 5, 6]])
-    H = np.expand_dims(np.array([7, 8, 9]), 0)
-    V = np.expand_dims(np.array([4, 4]), 0)
+    H = np.array([7, 8, 9])[np.newaxis]
+    V = np.array([4, 4])[np.newaxis]
     beta = np.array([i/10.0 for i in range(10)])
     # beta = np.hstack([np.linspace(0, 0.5, 1000),
     #                   np.linspace(0.5, 0.9, 4000),
